@@ -1,19 +1,10 @@
-import os
-import urllib.request
-from types import SimpleNamespace
-from urllib.error import HTTPError
-
 import lightning as L
-import numpy as np
-import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.utils.data as data
-import torchvision
 
 
 class TrainModule(L.LightningModule):
-    def __init__(self, model_name, model_hparams, optimizer_name, optimizer_hparams):
+    def __init__(self, model, loss_fn, optimizer_name, optimizer_hparams):
         """
         Inputs:
             model_name - Name of the model/CNN to run. Used for creating the model (see function below)
@@ -25,11 +16,9 @@ class TrainModule(L.LightningModule):
         # Exports the hyperparameters to a YAML file, and create "self.hparams" namespace
         self.save_hyperparameters()
         # Create model
-        self.model = create_model(model_name, model_hparams)
+        self.model = model
         # Create loss module
-        self.loss_module = nn.CrossEntropyLoss()
-        # Example input for visualizing the graph in Tensorboard
-        self.example_input_array = torch.zeros((1, 3, 32, 32), dtype=torch.float32)
+        self.loss_fn = loss_fn
 
     def forward(self, imgs):
         # Forward function that is run when visualizing the graph
@@ -47,14 +36,15 @@ class TrainModule(L.LightningModule):
             assert False, f'Unknown optimizer: "{self.hparams.optimizer_name}"'
 
         # We will reduce the learning rate by 0.1 after 100 and 150 epochs
-        scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=[100, 150], gamma=0.1)
+        scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=1)
         return [optimizer], [scheduler]
 
     def training_step(self, batch, batch_idx):
         # "batch" is the output of the training data loader.
         imgs, labels = batch
         preds = self.model(imgs)
-        loss = self.loss_module(preds, labels)
+        loss = self.loss_fn(preds, labels)
+        loss = loss.mean(dim=1).sum()
         acc = (preds.argmax(dim=-1) == labels).float().mean()
 
         # Logs the accuracy per epoch to tensorboard (weighted average over batches)
