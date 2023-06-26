@@ -1,0 +1,6 @@
+lightning
+lightning-bolts
+timm
+tensorboard
+torch-audiomentations
+colorednoise
