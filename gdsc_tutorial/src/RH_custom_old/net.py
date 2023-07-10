@@ -6,11 +6,10 @@ from torch.cuda.amp import autocast
 from torch.nn import functional as F
 from torch.nn.parameter import Parameter
 
-from .utils import NormalizeMelSpec, min_max_norm
 
 
 class SimpleCNN(nn.Module):
-    def __init__(self, cfg, init_backbone=True):
+    def __init__(self, cfg):
         super(SimpleCNN, self).__init__()
 
         self.cfg = cfg
@@ -25,27 +24,24 @@ class SimpleCNN(nn.Module):
             f_max=cfg.fmax,
             n_mels=cfg.n_mels,
             power=cfg.power,
-            normalized=cfg.mel_normalized,
+            normalized=True,
         )
 
         self.amplitude_to_db = ta.transforms.AmplitudeToDB(top_db=cfg.top_db)
-        self.wav2img = torch.nn.Sequential(self.mel_spec, 
-                                           self.amplitude_to_db)
-        if init_backbone:
-            self.backbone = timm.create_model(
-                cfg.backbone,
-                pretrained=cfg.pretrained,
-                num_classes=cfg.n_classes,
-                in_chans=cfg.in_chans,
-            )
+        self.wav2img = torch.nn.Sequential(self.mel_spec, self.amplitude_to_db)
+        self.backbone = timm.create_model(
+            cfg.backbone,
+            pretrained=cfg.pretrained,
+            num_classes=cfg.n_classes,
+            in_chans=cfg.in_chans,
+        )
 
     def forward(self, x):
-        # (bs, channel, time)
-        x = x[:, None, :] # one channel for CNN input
-        x = self.wav2img(x)  # (bs, channel, mel, time)
+        x = self.wav2img(x)  # (bs, mel, time)
         
-        if self.cfg.minmax_norm:
-            x = min_max_norm(x, min_val=self.cfg.min, max_val=self.cfg.max) 
+#         if self.training:
+#             x = self.spectra_transforms(x)    
         
+        x = x[:, None, :, :] # one channel for CNN input
         logits = self.backbone(x)
         return logits

@@ -228,7 +228,9 @@ def plot_waveform(path: str, time: Optional[float] = None) -> None:
 
 
 def get_max_amplitude_window_index(path: str,
-                                   window_length_sec,
+                                   waveform = None,
+                                   samplerate = None,
+                                   window_length_sec = 5,
                                    scan_param = 50, 
                                    verbose = True):
     '''
@@ -245,7 +247,8 @@ def get_max_amplitude_window_index(path: str,
         max_index (int): start index of window with max amplitudes 
     '''
 
-    waveform, samplerate =  torchaudio.load(path)
+    if waveform is None:
+        waveform, samplerate =  torchaudio.load(path)
     
     waveform_length = waveform[0].numpy().shape[0]
     window_length = math.floor(window_length_sec * samplerate)
@@ -267,5 +270,5 @@ def get_max_amplitude_window_index(path: str,
             max_index = x*scan_param
     
     if verbose:
-        print('window starts at:',max_index/samplerate, 'seconds')
+        print('window starts at:', max_index/samplerate, 'seconds')
     return max_index

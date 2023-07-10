@@ -1,6 +1,5 @@
 import random
 import json
-import math
 
 import torch
 import torch.nn as nn
@@ -9,71 +8,23 @@ import colorednoise as cn
 from tqdm import tqdm
 
 
-def get_max_amplitude_window_index(path: str,
-                                   waveform = None,
-                                   samplerate = None,
-                                   window_length_sec = 5,
-                                   scan_param = 50, 
-                                   verbose = True):
-    '''
-    Returns index of waveform that starts the window of length window_length_sec*samplerate, with the highest summed amplitude.
-    only scans at certain scan intervals, to speed up the calculation
-
-    Args:
-        path (str): path to data, as in torchaudio.load
-        window_length_sec: window length to calculate sum over absolute amplitudes
-        scan_param: samplerate should be divisible by scan_param
-        verbose (bool): to print return index in seconds
-
-    Returns:
-        max_index (int): start index of window with max amplitudes 
-    '''
-
-    if waveform is None:
-        waveform, samplerate =  torchaudio.load(path)
-    
-    waveform_length = waveform[0].numpy().shape[0]
-    window_length = math.floor(window_length_sec * samplerate)
-    
-    if window_length >= waveform_length:
-        return 0
-    
-    #divide available waveform length by scan_param, to construct scan array
-    scan_length = math.floor((waveform_length-window_length)/scan_param)
-    
-    max_sum = 0
-    max_index = 0
-    
-    #in every scan interval: calculate sum over window and save max
-    for x in range(scan_length):
-        tmp = np.sum(abs(waveform[0].numpy()[x*scan_param:x*scan_param+window_length]))
-        if tmp > max_sum:
-            max_sum = tmp
-            max_index = x*scan_param
-    
-    if verbose:
-        print('window starts at:', max_index/samplerate, 'seconds')
-    return max_index
-
-
 def get_min_max(cfg, dm, model):
     dm = dm(cfg=cfg)
     model = model(cfg, init_backbone=False)
     dm.setup()
-    dm.train.mode = 'val'
     total_max = -1e3
     total_min = 1e3
     print('Gather min max statistics:')
     for batch in tqdm(dm.train_dataloader()):
-        spec = model.wav2img(batch['wave'][:, None, :])
+        spec = model.wav2img(batch['wave'])
         if spec.max() > total_max:
             total_max = spec.max()
         if spec.min() < total_min:
             total_min = spec.min()
     return total_min, total_max
 
-
-def min_max_norm(x, min_val=-39.4655, max_val=53.6203):
+#def min_max_norm(x, min_val=-39.4655, max_val=53.6203):
+def min_max_norm(x, min_val=-32.4444, max_val=54.2951):
     return (x - min_val) / (max_val - min_val)
 
 

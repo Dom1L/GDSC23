@@ -25,7 +25,7 @@ class SimpleCNN(nn.Module):
             f_max=cfg.fmax,
             n_mels=cfg.n_mels,
             power=cfg.power,
-            normalized=cfg.mel_normalized,
+            normalized=False,
         )
 
         self.amplitude_to_db = ta.transforms.AmplitudeToDB(top_db=cfg.top_db)
@@ -40,12 +40,9 @@ class SimpleCNN(nn.Module):
             )
 
     def forward(self, x):
-        # (bs, channel, time)
         x = x[:, None, :] # one channel for CNN input
-        x = self.wav2img(x)  # (bs, channel, mel, time)
-        
-        if self.cfg.minmax_norm:
-            x = min_max_norm(x, min_val=self.cfg.min, max_val=self.cfg.max) 
+        x = self.wav2img(x)  # (bs, mel, time)
+        x = min_max_norm(x, min_val=self.cfg.min, max_val=self.cfg.max) 
         
         logits = self.backbone(x)
         return logits

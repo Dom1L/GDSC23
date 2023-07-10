@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 
 from torch_audiomentations import AddColoredNoise, ApplyImpulseResponse
 
-from .utils import Compose, OneOf, NoiseInjection, GaussianNoise, PinkNoise, get_max_amplitude_window_index
+from .utils import Compose, OneOf, NoiseInjection, GaussianNoise, PinkNoise
 
 
 def collate_fn(batch):
@@ -55,16 +55,9 @@ class AudioDataset(Dataset):
             pad = max_time - wave.shape[0]
             wave = torch.from_numpy(np.pad(wave, (0, pad)))
         else:
-            if self.mode == 'test' and self.cfg.max_amp:
-                start = get_max_amplitude_window_index('', 
-                                                       waveform = wave,
-                                                       samplerate = sample_rate,
-                                                       window_length_sec = self.cfg.wav_crop_len,
-                                                       scan_param = 50, 
-                                                       verbose = False)
-            # else:
-            #     start = 0 #np.random.randint(0, wave.shape[0] - max_time)
-                
+            if self.mode == 'train' or self.mode == 'test':
+                start = np.random.randint(0, wave.shape[0] - max_time)
+
         wave = wave[start:start+max_time]
         
         if self.mode == 'train':
