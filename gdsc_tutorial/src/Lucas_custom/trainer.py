@@ -55,7 +55,7 @@ class TrainModule(L.LightningModule):
         wave, labels = batch['wave'], batch['labels']
         batch_size = wave.shape[0]
         wave = self.impulse(wave.view(batch_size, 1, -1)).view(batch_size, -1)
-        preds, labels = self.model(wave, labels)
+        preds = self.model(wave)
         loss = self.loss_fn(preds, labels)
         #loss = loss.mean(dim=1).sum()
         acc = (preds.argmax(dim=-1) == labels.argmax(dim=-1)).float().mean()

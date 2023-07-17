@@ -70,18 +70,14 @@ def inference_all(net, state_dict_path, test_metadata_df, cfg, data_path):
     return test_metadata_df, preds
 
 
-def error_analysis(exp_path, filename=None, tag=''):
-    if filename:
-        df = pd.read_csv(f'{exp_path}/{filename}')
-    else:
-        df = pd.read_csv(f'{exp_path}/val_predictions_k-random.csv')
-
+def error_analysis(exp_path):
+    df = pd.read_csv(f'{exp_path}/val_predictions_k-random.csv')
     df_eval = df[['label', 'predicted_class_id']]
     y_pred = df_eval['predicted_class_id']
     y_true=df_eval['label']
 
     cm = metrics.confusion_matrix(y_true, y_pred)
-    np.save(f"{exp_path}/cm{tag}.npy", cm)
+    np.save(f"{exp_path}/cm.npy", cm)
 
     plot_confusion_matrix(cm, exp_path)
     
@@ -99,7 +95,7 @@ def error_analysis(exp_path, filename=None, tag=''):
         evaluation['accuracy'][i] = (len(df_to_eval)-wrong)/len(df_to_eval)
         wrong = 0
     pd.options.display.float_format = "{:,.2f}".format
-    evaluation.to_csv(f'{exp_path}/val_evaluation{tag}.csv') 
+    evaluation.to_csv(f'{exp_path}/val_evaluation.csv') 
     
     
 def plot_confusion_matrix(cm, exp_path):

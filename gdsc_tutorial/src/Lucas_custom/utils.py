@@ -4,8 +4,6 @@ import math
 
 import torch
 import torch.nn as nn
-from torch.distributions import Beta
-from torchaudio.transforms import FrequencyMasking, TimeMasking
 import numpy as np
 import colorednoise as cn
 from tqdm import tqdm
@@ -30,10 +28,13 @@ def get_max_amplitude_window_index(path: str,
     Returns:
         max_index (int): start index of window with max amplitudes 
     '''
-
+    
     if waveform is None:
         waveform, samplerate =  torchaudio.load(path)
     
+    print('type equals:', type(waveform))
+    print('size equals:', waveform.shape)
+    #print(waveform[0].shape)
     waveform_length = waveform[0].numpy().shape[0]
     window_length = math.floor(window_length_sec * samplerate)
     
@@ -199,6 +200,7 @@ class Mixup(nn.Module):
         n_dims = len(X.shape)
         perm = torch.randperm(bs)
         coeffs = self.beta_distribution.rsample(torch.Size((bs,))).to(X.device)
+
         if n_dims == 2:
             X = coeffs.view(-1, 1) * X + (1 - coeffs.view(-1, 1)) * X[perm]
         elif n_dims == 3:
@@ -241,23 +243,3 @@ class NormalizeMelSpec(nn.Module):
             V_fix = (V_fix - norm_min_fix) / (norm_max_fix - norm_min_fix)
             V[fix_ind] = V_fix
         return V
-
-    
-class MaskFrequency(AudioTransform):
-    def __init__(self, always_apply=False, p=0.5, freq_mask_param=40):
-        super().__init__(always_apply, p)
-        self.masking = FrequencyMasking(freq_mask_param=freq_mask_param, iid_masks=True)
-        
-    def apply(self, y: np.ndarray, **params):
-        return self.masking(y)
-   
-
-    
-class MaskTime(AudioTransform):
-    def __init__(self, always_apply=False, p=0.5, freq_mask_param=40):
-        super().__init__(always_apply, p)
-        self.masking = TimeMasking(time_mask_param=freq_mask_param, iid_masks=True)
-        
-    def apply(self, y: np.ndarray, **params):
-        return self.masking(y)
-   

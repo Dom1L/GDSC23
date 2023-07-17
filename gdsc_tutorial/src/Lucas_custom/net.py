@@ -6,7 +6,7 @@ from torch.cuda.amp import autocast
 from torch.nn import functional as F
 from torch.nn.parameter import Parameter
 
-from .utils import NormalizeMelSpec, min_max_norm, Mixup, Compose, OneOf, MaskFrequency, MaskTime
+from .utils import NormalizeMelSpec, min_max_norm
 
 
 class SimpleCNN(nn.Module):
@@ -38,33 +38,14 @@ class SimpleCNN(nn.Module):
                 num_classes=cfg.n_classes,
                 in_chans=cfg.in_chans,
             )
-            
-        self.specaug = Compose(
-                [OneOf(
-                    [MaskFrequency(p=1),
-                     MaskTime(p=1)],
-                    p=cfg.specaug_prob),
-                ])   
-        
-        self.mixup = Mixup(cfg.mixup_prob)
 
-    def forward(self, x, y=None):
+    def forward(self, x):
         # (bs, channel, time)
         x = x[:, None, :] # one channel for CNN input
         x = self.wav2img(x)  # (bs, channel, mel, time)
         
         if self.cfg.minmax_norm:
             x = min_max_norm(x, min_val=self.cfg.min, max_val=self.cfg.max) 
-            
-        if self.training:
-            if self.cfg.mixup:
-                x, y = self.mixup(x, y)
-            if self.cfg.specaug:
-                x = self.specaug(x, None)
         
         logits = self.backbone(x)
-        
-        if self.training:
-            return logits, y
-        else:
-            return logits
+        return logits
