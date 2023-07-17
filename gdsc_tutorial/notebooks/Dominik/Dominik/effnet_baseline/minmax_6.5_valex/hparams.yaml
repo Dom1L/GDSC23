@@ -1,0 +1,34 @@
+cfg: !!python/object/apply:types.SimpleNamespace
+  state:
+    backbone: tf_efficientnetv2_s.in21k
+    batch_size: 32
+    data_path: ../..//data/production_data/6-5s_crop/
+    exp_name: minmax_6.5_valex
+    fmax: 22050.0
+    fmin: 300
+    hop_length: 1024
+    impulse_prob: 0.2
+    in_chans: 1
+    include_val: false
+    label_smoothing: 0.1
+    lr: 0.000251
+    max_noise: 0.04
+    max_snr: 20
+    min_snr: 5
+    n_classes: 66
+    n_epochs: 20
+    n_fft: 2048
+    n_mels: 128
+    noise_prob: 0.2
+    num_workers: 4
+    power: 2
+    pretrained: true
+    sample_rate: 44100
+    top_db: 80.0
+    wav_crop_len: 6.5
+    weight_decay: 0.0001
+    window_size: 2048
+optimizer_hparams:
+  lr: 0.000251
+  weight_decay: 0.0001
+optimizer_name: Adam
