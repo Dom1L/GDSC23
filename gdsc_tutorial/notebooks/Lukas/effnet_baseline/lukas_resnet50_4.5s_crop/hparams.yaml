@@ -1,0 +1,62 @@
+cfg: !!python/object/apply:types.SimpleNamespace
+  state:
+    backbone: resnet50
+    batch_size: 32
+    data_path: ../..//data/production_data/4-5s_crop/
+    exp_name: lukas_resnet50_4.5s_crop
+    fmax: 22050.0
+    fmin: 300
+    hop_length: 1024
+    impulse_prob: 0.2
+    in_chans: 1
+    include_val: false
+    label_smoothing: 0.1
+    lr: 0.0031622776601683803
+    max: !!python/object/apply:torch._utils._rebuild_tensor_v2
+    - !!python/object/apply:torch.storage._load_from_bytes
+      - !!binary |
+        gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
+        AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
+        aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
+        Z2UKcQFYDgAAADk0MjQwMzM3Nzk0NDMycQJYAwAAAGNwdXEDSwFOdHEEUS6AAl1xAFgOAAAAOTQy
+        NDAzMzc3OTQ0MzJxAWEuAQAAAAAAAACSl1lC
+    - 0
+    - !!python/tuple []
+    - !!python/tuple []
+    - false
+    - !!python/object/apply:collections.OrderedDict
+      - []
+    max_noise: 0.04
+    max_snr: 20
+    min: !!python/object/apply:torch._utils._rebuild_tensor_v2
+    - !!python/object/apply:torch.storage._load_from_bytes
+      - !!binary |
+        gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
+        AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
+        aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
+        Z2UKcQFYDgAAADk0MjQwMzYzOTU4MjQwcQJYAwAAAGNwdXEDSwFOdHEEUS6AAl1xAFgOAAAAOTQy
+        NDAzNjM5NTgyNDBxAWEuAQAAAAAAAABnnhTC
+    - 0
+    - !!python/tuple []
+    - !!python/tuple []
+    - false
+    - !!python/object/apply:collections.OrderedDict
+      - []
+    min_snr: 5
+    n_classes: 66
+    n_epochs: 100
+    n_fft: 2048
+    n_mels: 128
+    noise_prob: 0.2
+    num_workers: 4
+    power: 2
+    pretrained: true
+    sample_rate: 44100
+    top_db: 80.0
+    wav_crop_len: 4.5
+    weight_decay: 0.0001
+    window_size: 2048
+optimizer_hparams:
+  lr: 0.0031622776601683803
+  weight_decay: 0.0001
+optimizer_name: Adam

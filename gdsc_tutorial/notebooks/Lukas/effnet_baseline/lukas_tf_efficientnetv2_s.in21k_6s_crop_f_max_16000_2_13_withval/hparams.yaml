@@ -1,0 +1,37 @@
+cfg: !!python/object/apply:types.SimpleNamespace
+  state:
+    backbone: tf_efficientnetv2_s.in21k
+    batch_size: 32
+    data_path: ../..//data/production_data/6s_crop/
+    exp_name: lukas_tf_efficientnetv2_s.in21k_6s_crop_f_max_16000_2_13_withval
+    fmax: 16000
+    fmin: 300
+    hop_length: 4096
+    impulse_prob: 0.175
+    in_chans: 1
+    include_val: true
+    label_smoothing: 0.1
+    lr: 0.0015
+    max_amp: false
+    max_noise: 0.04
+    max_snr: 20
+    mel_normalized: true
+    min_snr: 5
+    minmax_norm: false
+    n_classes: 66
+    n_epochs: 18
+    n_fft: 8192
+    n_mels: 128
+    noise_prob: 0.175
+    num_workers: 4
+    power: 2
+    pretrained: true
+    sample_rate: 44100
+    top_db: 80.0
+    wav_crop_len: 6
+    weight_decay: 2.0e-05
+    window_size: 8192
+optimizer_hparams:
+  lr: 0.0015
+  weight_decay: 2.0e-05
+optimizer_name: Adam
