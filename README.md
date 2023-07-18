@@ -25,7 +25,7 @@ External libraries, frameworks, or packages that are required to run the model s
 5. Decide which hyperparameters to use, whether to use a pretrained model, etc.
 6. Run the necessary notebooks including 04_run_training.
 
-##Training the Model
+## Training the Model
 Decide if you want to use a pretrained model, or train the model from scratch. This and other hyperparameters can be set in the 04_run_training notebook.
 
 ## Making Predictions or Classifications
@@ -41,28 +41,51 @@ Describe the data used to train and evaluate the model. Include information abou
 This is the expected structure of the model. Paths with no file ending are folders.
 
 class_weights: Directory containing different class weights, based on various metrics.
+
 data: Directory containing train, validation and test data.
+
 notebooks/
+
   01_preprocess_waves.ipynb: Notebook for preprocessing sound data to uniform length.
+  
   02_classweights.ipynb: Notebook that calculates various class weights.
+  
   03_scan_lr.ipynb: Notebook that trains the model multiple times with different learning rates for a few epochs.
+  
   04_run_training.ipynb: Notebook that trains and evaluates the data.
+  
   05_scan_parameters.ipynb: 
+  
 shell_scripts: Directory that contains 2 shell scripts, to help reduce costs on AWS.
+
 src/
+
   custom/
+  
     __inti__.py:
+    
     data.py:
+    
     eval.py:
+    
     net.py:
+    
     trainer.py
+    
     utils.py
+    
   baseline_ast_train.py
+  
   config.py
+  
   eda_utils.py
+  
   gdsc_eval.py
+  
   gdsc_utils.py
+  
   preprocessing.py
+  
 requirements.txt
 
 ## Additional Notes
