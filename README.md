@@ -72,18 +72,18 @@ Include any additional notes or considerations relevant to the model, such as li
 
 ## Contributors
 List of people, that contributed in creating this model:
-: Raffaela Heily
-: Dominik Lemm
-: Lukas Kementinger
-: Lucas Unterberger
+- Raffaela Heily
+- Dominik Lemm
+- Lukas Kementinger
+- Lucas Unterberger
 
 Many thanks to the brilliant **I&D Germany** team that made all of this possible:
-: Daniel Kühlwein
-: ...
+- Daniel Kühlwein
+- ...
 
 A special thanks to the team of **Naturalis Biodiversity Center** that provided the data, the idea and the path towards a more sustainable and biodiverse future:
-: Max Schöttler
-: ....
+- Max Schöttler
+- ....
 
 Additionally we want to thank **AWS**, for providing us with their state of the art cloud infrastructure and enough resources, to make this challenge a reality
 
