@@ -19,10 +19,12 @@ def get_max_amplitude_window_index(path: str, waveform=None, samplerate=None, wi
 
     Parameters
     ----------
-    path (str): path to data, as in torchaudio.load
-    window_length_sec: window length to calculate sum over absolute amplitudes
-    scan_param: samplerate should be divisible by scan_param
-    verbose (bool): to print return index in seconds
+    path: str, path to data, as in torchaudio.load().
+    waveform: torch.tensor of a single waveform.
+    samplerate: samplerate of the waveform.
+    window_length_sec: window length to calculate sum over absolute amplitudes.
+    scan_param: samplerate should be divisible by scan_param.
+    verbose: bool, to print return index in seconds.
 
     Returns
     -------
@@ -65,7 +67,7 @@ def get_min_max(cfg, dm, model):
     ----------
     cfg: SimpleNameSpace containing all configurations
     dm: Lightning Datamodule class, e.g. as defined in data.py.
-    net: Pytorch network class, e.g. SimpleCNN() defined in net.py.
+    model: Pytorch network class, e.g. SimpleCNN() defined in net.py.
 
     Returns
     -------
