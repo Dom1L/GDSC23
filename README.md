@@ -40,53 +40,32 @@ Describe the data used to train and evaluate the model. Include information abou
 ## Model Files
 This is the expected structure of the model. Paths with no file ending are folders.
 
+~~~
 class_weights: Directory containing different class weights, based on various metrics.
-
 data: Directory containing train, validation and test data.
-
 notebooks/
-
-  01_preprocess_waves.ipynb: Notebook for preprocessing sound data to uniform length.
-  
-  02_classweights.ipynb: Notebook that calculates various class weights.
-  
+  01_preprocess_waves.ipynb: Notebook for preprocessing sound data to uniform length. 
+  02_classweights.ipynb: Notebook that calculates various class weights. 
   03_scan_lr.ipynb: Notebook that trains the model multiple times with different learning rates for a few epochs.
-  
-  04_run_training.ipynb: Notebook that trains and evaluates the data.
-  
-  05_scan_parameters.ipynb: 
-  
+  04_run_training.ipynb: Notebook that trains and evaluates the data. 
+  05_scan_parameters.ipynb:  
 shell_scripts: Directory that contains 2 shell scripts, to help reduce costs on AWS.
-
 src/
-
-  custom/
-  
-    __inti__.py:
-    
-    data.py:
-    
+  custom/  
+    __inti__.py:    
+    data.py:    
     eval.py:
-    
     net.py:
-    
     trainer.py
-    
     utils.py
-    
-  baseline_ast_train.py
-  
+  baseline_ast_train.py 
   config.py
-  
   eda_utils.py
-  
-  gdsc_eval.py
-  
-  gdsc_utils.py
-  
-  preprocessing.py
-  
+  gdsc_eval.py 
+  gdsc_utils.py 
+  preprocessing.py  
 requirements.txt
+~~~
 
 ## Additional Notes
 Include any additional notes or considerations relevant to the model, such as limitations, known issues, or future improvements.
