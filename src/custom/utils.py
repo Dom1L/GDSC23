@@ -10,54 +10,69 @@ import colorednoise as cn
 from tqdm import tqdm
 
 
-def get_max_amplitude_window_index(path: str,
-                                   waveform = None,
-                                   samplerate = None,
-                                   window_length_sec = 5,
-                                   scan_param = 50, 
-                                   verbose = True):
-    '''
-    Returns index of waveform that starts the window of length window_length_sec*samplerate, with the highest summed amplitude.
+def get_max_amplitude_window_index(path: str, waveform=None, samplerate=None, window_length_sec=5, scan_param=50,
+                                   verbose=True):
+    """
+    Returns index of waveform that starts the window of length window_length_sec*samplerate,
+    with the highest summed amplitude.
     only scans at certain scan intervals, to speed up the calculation
 
-    Args:
-        path (str): path to data, as in torchaudio.load
-        window_length_sec: window length to calculate sum over absolute amplitudes
-        scan_param: samplerate should be divisible by scan_param
-        verbose (bool): to print return index in seconds
+    Parameters
+    ----------
+    path (str): path to data, as in torchaudio.load
+    window_length_sec: window length to calculate sum over absolute amplitudes
+    scan_param: samplerate should be divisible by scan_param
+    verbose (bool): to print return index in seconds
 
-    Returns:
-        max_index (int): start index of window with max amplitudes 
-    '''
+    Returns
+    -------
+    max_index (int): start index of window with max amplitudes
 
+    """
     if waveform is None:
-        waveform, samplerate =  torchaudio.load(path)
-    
+        waveform, samplerate = torchaudio.load(path)
+
     waveform_length = waveform[0].numpy().shape[0]
     window_length = math.floor(window_length_sec * samplerate)
-    
+
     if window_length >= waveform_length:
         return 0
-    
-    #divide available waveform length by scan_param, to construct scan array
-    scan_length = math.floor((waveform_length-window_length)/scan_param)
-    
+
+    # divide available waveform length by scan_param, to construct scan array
+    scan_length = math.floor((waveform_length - window_length) / scan_param)
+
     max_sum = 0
     max_index = 0
-    
-    #in every scan interval: calculate sum over window and save max
+
+    # in every scan interval: calculate sum over window and save max
     for x in range(scan_length):
-        tmp = np.sum(abs(waveform[0].numpy()[x*scan_param:x*scan_param+window_length]))
+        tmp = np.sum(abs(waveform[0].numpy()[x * scan_param:x * scan_param + window_length]))
         if tmp > max_sum:
             max_sum = tmp
-            max_index = x*scan_param
-    
+            max_index = x * scan_param
+
     if verbose:
-        print('window starts at:', max_index/samplerate, 'seconds')
+        print('window starts at:', max_index / samplerate, 'seconds')
     return max_index
 
 
 def get_min_max(cfg, dm, model):
+    """
+    Helper function to obtain the minimum and maximum
+    spectrogram values necessary for min max normalization.
+
+    Parameters
+    ----------
+    cfg: SimpleNameSpace containing all configurations
+    dm: Lightning Datamodule class, e.g. as defined in data.py.
+    net: Pytorch network class, e.g. SimpleCNN() defined in net.py.
+
+    Returns
+    -------
+    total_min: float
+    total_max: float
+
+    """
     dm = dm(cfg=cfg)
     model = model(cfg, init_backbone=False)
     dm.setup()
@@ -75,21 +90,40 @@ def get_min_max(cfg, dm, model):
 
 
 def min_max_norm(x, min_val=-39.4655, max_val=53.6203):
+    # Min max normalization of an array x
     return (x - min_val) / (max_val - min_val)
 
 
 def batch_to_device(batch, device):
+    # Helper function to move a Pytorch batch to a specific device,
+    # e.g. a GPU.
     batch_dict = {key: batch[key].to(device) for key in batch}
     return batch_dict
 
 
 def get_state_dict(sd_fp):
+    """
+    Helper function to load and preprocess Pytorch state dicts, which
+    contains for instance model weights.
+    When using pretrained models from other libraries key mismatches
+    can happen which requires the replacement of certain keys.
+
+    Parameters
+    ----------
+    sd_fp: str. Filepath to a state dict.
+
+    Returns
+    -------
+    sd: Torch tensor containing model weights.
+    """
     sd = torch.load(sd_fp, map_location="cpu")['state_dict']
-    sd = {k.replace("model.", ""):v for k,v in sd.items()}
+    # When saving model weights during training, the prefix 'model.'
+    # is appended which leads to errors during loading and has to be removed.
+    sd = {k.replace("model.", ""): v for k, v in sd.items()}
     sd.pop("loss_fn.weight")
     return sd
 
-        
+
 class Compose:
     def __init__(self, transforms: list):
         self.transforms = transforms
@@ -135,7 +169,7 @@ class OneOf(Compose):
             data = t(y, sr)
         return data
 
-    
+
 class NoiseInjection(AudioTransform):
     def __init__(self, always_apply=False, p=0.5, max_noise_level=0.5):
         super().__init__(always_apply, p)
@@ -184,7 +218,25 @@ class PinkNoise(AudioTransform):
         a_pink = torch.sqrt(pink_noise ** 2).max()
         augmented = y + (pink_noise * 1 / a_pink * a_noise).type(y.dtype)
         return augmented
-   
+
+
+class MaskFrequency(AudioTransform):
+    def __init__(self, always_apply=False, p=0.5, freq_mask_param=40):
+        super().__init__(always_apply, p)
+        self.masking = FrequencyMasking(freq_mask_param=freq_mask_param, iid_masks=True)
+
+    def apply(self, y: np.ndarray, **params):
+        return self.masking(y)
+
+
+class MaskTime(AudioTransform):
+    def __init__(self, always_apply=False, p=0.5, freq_mask_param=40):
+        super().__init__(always_apply, p)
+        self.masking = TimeMasking(time_mask_param=freq_mask_param, iid_masks=True)
+
+    def apply(self, y: np.ndarray, **params):
+        return self.masking(y)
+
 
 class Mixup(nn.Module):
     def __init__(self, mix_beta):
@@ -212,51 +264,3 @@ class Mixup(nn.Module):
         else:
             weight = coeffs.view(-1) * weight + (1 - coeffs.view(-1)) * weight[perm]
             return X, Y, weight
-
-        
-class NormalizeMelSpec(nn.Module):
-    def __init__(self, eps=1e-6):
-        super().__init__()
-        self.eps = eps
-
-    def forward(self, X):
-        mean = X.mean((1, 2), keepdim=True)
-        std = X.std((1, 2), keepdim=True)
-        Xstd = (X - mean) / (std + self.eps)
-        norm_min, norm_max = Xstd.min(-1)[0].min(-1)[0], Xstd.max(-1)[0].max(-1)[0]
-        fix_ind = (norm_max - norm_min) > self.eps * torch.ones_like(
-            (norm_max - norm_min)
-        )
-        V = torch.zeros_like(Xstd)
-        if fix_ind.sum():
-            V_fix = Xstd[fix_ind]
-            norm_max_fix = norm_max[fix_ind, None, None]
-            norm_min_fix = norm_min[fix_ind, None, None]
-            V_fix = torch.max(
-                torch.min(V_fix, norm_max_fix),
-                norm_min_fix,
-            )
-            # print(V_fix.shape, norm_min_fix.shape, norm_max_fix.shape)
-            V_fix = (V_fix - norm_min_fix) / (norm_max_fix - norm_min_fix)
-            V[fix_ind] = V_fix
-        return V
-
-    
-class MaskFrequency(AudioTransform):
-    def __init__(self, always_apply=False, p=0.5, freq_mask_param=40):
-        super().__init__(always_apply, p)
-        self.masking = FrequencyMasking(freq_mask_param=freq_mask_param, iid_masks=True)
-        
-    def apply(self, y: np.ndarray, **params):
-        return self.masking(y)
-   
-
-    
-class MaskTime(AudioTransform):
-    def __init__(self, always_apply=False, p=0.5, freq_mask_param=40):
-        super().__init__(always_apply, p)
-        self.masking = TimeMasking(time_mask_param=freq_mask_param, iid_masks=True)
-        
-    def apply(self, y: np.ndarray, **params):
-        return self.masking(y)
-   

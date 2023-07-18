@@ -9,6 +9,11 @@ from .utils import min_max_norm, Mixup, Compose, OneOf, MaskFrequency, MaskTime
 class SimpleCNN(nn.Module):
     def __init__(self, cfg, init_backbone=True):
         """
+        Pytorch network class containing the transformation from waveform to
+        mel spectrogram, as well as the forward pass through a CNN backbone.
+
+        Data augmentation like mixup or masked frequency or time can also be
+        applied here.
 
         Parameters
         ----------
