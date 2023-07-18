@@ -9,13 +9,12 @@ The ML model is built using TorchAudio and utilizes pre-trained models as part o
 ## Dependencies
 External libraries, frameworks, or packages that are required to run the model successfully. See also requirements.txt.
 
-1. Library Name 1 (Version X.X.X)
-1. Library Name 2 (Version X.X.X)
-1. Library Name 1 (Version X.X.X)
-1. Library Name 2 (Version X.X.X)
-1. Library Name 1 (Version X.X.X)
-1. Library Name 2 (Version X.X.X)
-
+- Library Name 1 (Version X.X.X)
+- Library Name 2 (Version X.X.X)
+- Library Name 1 (Version X.X.X)
+- Library Name 2 (Version X.X.X)
+- Library Name 1 (Version X.X.X)
+- Library Name 2 (Version X.X.X)
 
 ## Usage
 1. Install the necessary dependencies specified in the "Dependencies" section.
