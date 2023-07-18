@@ -19,10 +19,12 @@ def get_max_amplitude_window_index(path: str, waveform=None, samplerate=None, wi
 
     Parameters
     ----------
-    path (str): path to data, as in torchaudio.load
-    window_length_sec: window length to calculate sum over absolute amplitudes
-    scan_param: samplerate should be divisible by scan_param
-    verbose (bool): to print return index in seconds
+    path: str, path to data, as in torchaudio.load().
+    waveform: torch.tensor of a single waveform.
+    samplerate: samplerate of the waveform.
+    window_length_sec: window length to calculate sum over absolute amplitudes.
+    scan_param: samplerate should be divisible by scan_param.
+    verbose: bool, to print return index in seconds.
 
     Returns
     -------
@@ -65,7 +67,7 @@ def get_min_max(cfg, dm, model):
     ----------
     cfg: SimpleNameSpace containing all configurations
     dm: Lightning Datamodule class, e.g. as defined in data.py.
-    net: Pytorch network class, e.g. SimpleCNN() defined in net.py.
+    model: Pytorch network class, e.g. SimpleCNN() defined in net.py.
 
     Returns
     -------
@@ -126,6 +128,19 @@ def get_state_dict(sd_fp):
 
 class Compose:
     def __init__(self, transforms: list):
+        """
+        Base class to chain data augmentation methods.
+
+        Based and modified from
+        https://github.com/albumentations-team/albumentations/blob/master/albumentations/core/composition.py
+        and
+        https://github.com/tattaka/birdclef-2021/blob/7fed19356f8e4cc499ed29dbcdd7b8e960de6cef/src/stage1/main.py
+        under MIT license.
+
+        Parameters
+        ----------
+        transforms: list of augmentation methods, e.g. [NoiseInjection(), GaussianNoise()]
+        """
         self.transforms = transforms
 
     def __call__(self, y: np.ndarray, sr):
@@ -134,8 +149,52 @@ class Compose:
         return y
 
 
+class OneOf(Compose):
+    def __init__(self, transforms, p=0.5):
+        """
+        Chooses one transformation/augmentation method from a provided
+        list with probability p.
+
+        Based and modified from
+        https://github.com/albumentations-team/albumentations/blob/master/albumentations/core/composition.py
+        and
+        https://github.com/tattaka/birdclef-2021/blob/7fed19356f8e4cc499ed29dbcdd7b8e960de6cef/src/stage1/main.py
+        under MIT license.
+
+        Parameters
+        ----------
+        transforms: list of augmentation methods, e.g. [NoiseInjection(), GaussianNoise()].
+        p: float. Probability to apply augmentation.
+        """
+        super().__init__(transforms)
+        self.p = p
+        transforms_ps = [t.p for t in transforms]
+        s = sum(transforms_ps)
+        self.transforms_ps = [t / s for t in transforms_ps]
+
+    def __call__(self, y: np.ndarray, sr):
+        data = y
+        if self.transforms_ps and (random.random() < self.p):
+            random_state = np.random.RandomState(random.randint(0, 2 ** 32 - 1))
+            t = random_state.choice(self.transforms, p=self.transforms_ps)
+            data = t(y, sr)
+        return data
+
+
 class AudioTransform:
     def __init__(self, always_apply=False, p=0.5):
+        """
+        Base class for data augmentations on waveforms or spectrogram's.
+
+        Based and modified from
+        https://github.com/tattaka/birdclef-2021/blob/7fed19356f8e4cc499ed29dbcdd7b8e960de6cef/src/stage1/main.py
+        under MIT license.
+
+        Parameters
+        ----------
+        always_apply: bool. Can be turned to True for debugging purposes.
+        p: float between 0-1. Probability to apply the augmentation.
+        """
         self.always_apply = always_apply
         self.p = p
 
@@ -152,26 +211,21 @@ class AudioTransform:
         raise NotImplementedError
 
 
-class OneOf(Compose):
-    # https://github.com/albumentations-team/albumentations/blob/master/albumentations/core/composition.py
-    def __init__(self, transforms, p=0.5):
-        super().__init__(transforms)
-        self.p = p
-        transforms_ps = [t.p for t in transforms]
-        s = sum(transforms_ps)
-        self.transforms_ps = [t / s for t in transforms_ps]
-
-    def __call__(self, y: np.ndarray, sr):
-        data = y
-        if self.transforms_ps and (random.random() < self.p):
-            random_state = np.random.RandomState(random.randint(0, 2 ** 32 - 1))
-            t = random_state.choice(self.transforms, p=self.transforms_ps)
-            data = t(y, sr)
-        return data
-
-
 class NoiseInjection(AudioTransform):
     def __init__(self, always_apply=False, p=0.5, max_noise_level=0.5):
+        """
+        Noise injection augmentation to be applied on waveforms.
+
+        Based and modified from
+        https://github.com/tattaka/birdclef-2021/blob/7fed19356f8e4cc499ed29dbcdd7b8e960de6cef/src/stage1/main.py
+        under MIT license.
+
+        Parameters
+        ----------
+        always_apply: bool. Can be turned to True for debugging purposes.
+        p: float between 0-1. Probability to apply the augmentation.
+        max_noise_level: float. Maximum noise level of the injection.
+        """
         super().__init__(always_apply, p)
 
         self.noise_level = (0.0, max_noise_level)
@@ -186,6 +240,20 @@ class NoiseInjection(AudioTransform):
 
 class GaussianNoise(AudioTransform):
     def __init__(self, always_apply=False, p=0.5, min_snr=5, max_snr=20):
+        """
+        Gaussian noise augmentation to be applied on waveforms.
+
+        Based and modified from
+        https://github.com/tattaka/birdclef-2021/blob/7fed19356f8e4cc499ed29dbcdd7b8e960de6cef/src/stage1/main.py
+        under MIT license.
+
+        Parameters
+        ----------
+        always_apply: bool. Can be turned to True for debugging purposes.
+        p: float between 0-1. Probability to apply the augmentation.
+        min_snr: int. Minimum signal-to-noise ratio.
+        max_snr: int. Maximum signal-to-noise ratio.
+        """
         super().__init__(always_apply, p)
 
         self.min_snr = min_snr
@@ -204,6 +272,20 @@ class GaussianNoise(AudioTransform):
 
 class PinkNoise(AudioTransform):
     def __init__(self, always_apply=False, p=0.5, min_snr=5, max_snr=20):
+        """
+        Pink noise augmentation to be applied on waveforms.
+
+        Based and modified from
+        https://github.com/tattaka/birdclef-2021/blob/7fed19356f8e4cc499ed29dbcdd7b8e960de6cef/src/stage1/main.py
+        under MIT license.
+
+        Parameters
+        ----------
+        always_apply: bool. Can be turned to True for debugging purposes.
+        p: float between 0-1. Probability to apply the augmentation.
+        min_snr: int. Minimum signal-to-noise ratio.
+        max_snr: int. Maximum signal-to-noise ratio.
+        """
         super().__init__(always_apply, p)
 
         self.min_snr = min_snr
@@ -222,6 +304,16 @@ class PinkNoise(AudioTransform):
 
 class MaskFrequency(AudioTransform):
     def __init__(self, always_apply=False, p=0.5, freq_mask_param=40):
+        """
+        Masks a random frequency range (freq_mask_param) in individual
+        samples of a batch (iid_masks=True).
+
+        Parameters
+        ----------
+        always_apply: bool. Can be turned to True for debugging purposes.
+        p: float between 0-1. Probability to apply the augmentation.
+        freq_mask_param: int. Maximum frequency range to be masked in a sample.
+        """
         super().__init__(always_apply, p)
         self.masking = FrequencyMasking(freq_mask_param=freq_mask_param, iid_masks=True)
 
@@ -231,6 +323,16 @@ class MaskFrequency(AudioTransform):
 
 class MaskTime(AudioTransform):
     def __init__(self, always_apply=False, p=0.5, freq_mask_param=40):
+        """
+        Masks a random time range (freq_mask_param) in individual
+        samples of a batch (iid_masks=True).
+
+        Parameters
+        ----------
+        always_apply: bool. Can be turned to True for debugging purposes.
+        p: float between 0-1. Probability to apply the augmentation.
+        freq_mask_param: int. Maximum time range to be masked in a sample.
+        """
         super().__init__(always_apply, p)
         self.masking = TimeMasking(time_mask_param=freq_mask_param, iid_masks=True)
 
@@ -240,12 +342,23 @@ class MaskTime(AudioTransform):
 
 class Mixup(nn.Module):
     def __init__(self, mix_beta):
+        """
+        Performs Mixup augmentation on spectrograms and 1hot labels.
 
+        Based and modified from
+        https://github.com/ChristofHenkel/kaggle-birdclef2021-2nd-place/blob/26438069466242e9154aacb9818926dba7ddc7f0/models/model_utils.py#L35
+        under MIT license.
+
+        A beta distribution is used to draw mixup probabilities.
+
+        Parameters
+        ----------
+        mix_beta: float. Parameter to initialize a symmetric beta distribution.
+        """
         super(Mixup, self).__init__()
         self.beta_distribution = Beta(mix_beta, mix_beta)
 
     def forward(self, X, Y, weight=None):
-
         bs = X.shape[0]
         n_dims = len(X.shape)
         perm = torch.randperm(bs)
