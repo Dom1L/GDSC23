@@ -41,15 +41,15 @@ Describe the data used to train and evaluate the model. Include information abou
 This is the expected structure of the model. Paths with no file ending are folders.
 
 ~~~
-class_weights: Directory containing different class weights, based on various metrics.
-data: Directory containing train, validation and test data.
+class_weights:                       Directory containing different class weights, based on various metrics.
+data:                                Directory containing train, validation and test data.
 notebooks/
-  01_preprocess_waves.ipynb: Notebook for preprocessing sound data to uniform length. 
-  02_classweights.ipynb: Notebook that calculates various class weights. 
-  03_scan_lr.ipynb: Notebook that trains the model multiple times with different learning rates for a few epochs.
-  04_run_training.ipynb: Notebook that trains and evaluates the data. 
+  01_preprocess_waves.ipynb:         Notebook for preprocessing sound data to uniform length. 
+  02_classweights.ipynb:             Notebook that calculates various class weights. 
+  03_scan_lr.ipynb:                  Notebook that trains the model multiple times with different learning rates.
+  04_run_training.ipynb:             Notebook that trains and evaluates the data. 
   05_scan_parameters.ipynb:  
-shell_scripts: Directory that contains 2 shell scripts, to help reduce costs on AWS.
+shell_scripts:                       Directory that contains 2 shell scripts, to help reduce costs on AWS.
 src/
   custom/  
     __inti__.py:    
@@ -71,7 +71,21 @@ requirements.txt
 Include any additional notes or considerations relevant to the model, such as limitations, known issues, or future improvements.
 
 ## Contributors
-List the names or usernames of the contributors who developed the model.
+List of people, that contributed in creating this model:
+: Raffaela Heily
+: Dominik Lemm
+: Lukas Kementinger
+: Lucas Unterberger
+
+Many thanks to the brilliant **I&D Germany** team that made all of this possible:
+: Daniel Kühlwein
+: ...
+
+A special thanks to the team of **Naturalis Biodiversity Center** that provided the data, the idea and the path towards a more sustainable and biodiverse future:
+: Max Schöttler
+: ....
+
+Additionally we want to thank **AWS**, for providing us with their state of the art cloud infrastructure and enough resources, to make this challenge a reality
 
 ## License
 Specify the license under which the model is released. If it is an open-source project, provide a link to the license file.
