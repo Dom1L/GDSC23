@@ -71,9 +71,7 @@ requirements.txt
 ~~~
 
 ## Additional Notes
-Include any additional notes or considerations relevant to the model, such as limitations, known issues, or future improvements.
-
-file paths!
+Please be warned that file paths might need to be adapted, depending on your OS and environment setup. 
 
 ## Contributors
 List of people, that contributed in creating this model:
