@@ -24,7 +24,7 @@ In production_data
 
 | file_name | unique_file | path | species | label | subset | sample_rate | num_frames | lenght |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| Header | Title | xxx | xxx | xxx | xxx | xxx | xxx | xxx | 
+| insect_abc_001.wav | insect_abc_001.wav |data/train/insect_abc_001.wav | insect_abc | 1 | train | 44100 | 4586400 | 104 | 
 | Paragraph | Text | xxx | xxx | xxx | xxx | xxx | xxx | xxx | 
 
 ## Additional notes
