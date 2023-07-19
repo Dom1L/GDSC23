@@ -1,8 +1,7 @@
-# Capgemini Global Data Science Challenge 2023 README 
-# (Data-Folder)
+# Capgemini GDSC 2023 README (Data-Folder)
 
 ## Overview 
-This directory contains the whole data that is used for the training, evaluation and testing of the selected ML model as well as a metadata csv file. For further details look at the **Data** section below.
+This folder contains the whole data that is used for the training, evaluation and testing of the selected ML model as well as a metadata csv file. For further details look at the **Data** section below.
 
 ## Model Files
 This is the expected structure for accessing the given data within the notebooks. Paths with no file ending are folders.

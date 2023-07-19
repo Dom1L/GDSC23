@@ -1,5 +1,4 @@
-# Capgemini Global Data Science Challenge 2023 README 
-# (Notebook-Folder)
+# Capgemini GDSC2023 README (Notebook-Folder)
 
 ## Overview
 This folder contains the used notebooks.
