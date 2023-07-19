@@ -108,5 +108,5 @@ Many thanks to our Capgemini Sponsors and organizational team that made all of t
 Additionally, we want to thank **AWS**, for providing us with their state of the art cloud infrastructure and enough resources, to make this challenge a reality.
 
 ## License
-The used impulse response data is available on [OpenAir](https://www.openair.hosted.york.ac.uk/) licences under CC BY 4.0.
+The used impulse response data is available on [OpenAir](https://www.openair.hosted.york.ac.uk/) licenced under CC BY 4.0.
 All additional Python dependencies are licensed either under MIT or Apache 2.0.
