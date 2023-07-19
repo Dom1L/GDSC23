@@ -1,7 +1,7 @@
 # Capgemini GDSC 2023 README (Data-Folder)
 
 ## Overview 
-This folder contains the whole data that is used for the training, evaluation and testing of the selected ML model as well as a metadata csv file. For further details look at the **Data** section below.
+This folder contains the whole data that is used for the training, evaluation and testing of the selected ML model as well as a metadata csv file. For detailed information look at the **Data** section below.
 
 ## Model Files
 This is the expected structure for accessing the given data within the notebooks. Paths with no file ending are folders.
@@ -12,14 +12,15 @@ data/
   val                    Directory containing validation data.
   test                   Directory containing test data.
   production_data/       Directory containing customized data.
-    metadata.csv         Metadata of the customized data.
+    crop-x-s             Directory with data at a given uniforme lenght
+       metadata.csv      Metadata of the customized data.
+    ...
   metadata.csv           Metadata of the training and validation data.
 ~~~
 
 ## Data
 This directory contains the whole data in form of waveform files as well as a metadata csv file, that contains the exact filename, path and label for the training and validation data. Crucially, all data is supposed to have the same sampling frequency, but can vary in length.
-
-In production_data 
+The metadata file 
 
 
 | file_name | unique_file | path | species | label | subset | sample_rate | num_frames | lenght |
@@ -29,5 +30,7 @@ In production_data
 | insect_abb_001.wav | insect_abb_001 | data/train/insect_abb_001.wav | insect_abb | 7 | train | 44100 | 220500 | 11.4 | 
 | insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/val/insect_bcd_001_dat1.wav | insect_bcd | 34 | validation | 44100 | 88200 | 2 | 
 | insect_dae_003.wav | insect_dae_003 | data/val/insect_dae_003.wav | insect_dae | 49 | validation | 44100 | 238140 | 5.4 | 
+
+After using the 01_preprocess_waves notebooks a 
 
 ## Additional notes
