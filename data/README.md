@@ -43,8 +43,8 @@ Note that the metadata for this customized files has a different sctructure, giv
 | ----------- | ----------- | ----------- | ----------- | ----------- |
 | insect_dae_003.wav | insect_dae_003 | data/production_data/crop-x-s/val/insect_dae_003_chunk1.wav | 49 | validation | 
 | insect_dae_003.wav | insect_dae_003 | data/production_data/crop-x-s/val/insect_dae_003_chunk1.wav | 49 | validation | 
-| insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/production_data/crop-x-sval/insect_bcd_001_dat1_loop.wav | 34 | validation | 
-| insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/production_data/crop-x-sval/insect_bcd_001_dat1_padded.wav | 34 | validation | 
+| insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/production_data/crop-x-s/val/insect_bcd_001_dat1_loop.wav | 34 | validation | 
+| insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/production_data/crop-x-s/val/insect_bcd_001_dat1_padded.wav | 34 | validation | 
 | insect_abc_001.wav | insect_abc_001 | data/production_data/crop-x-s/train/insect_abc_001_chunk1.wav | 1 | train |
 
 ## Additional notes
