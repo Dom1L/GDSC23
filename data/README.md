@@ -8,14 +8,16 @@ This is the expected structure for accessing the given data within the notebooks
 
 ~~~
 data/
-  train                  Directory containing train data.
-  val                    Directory containing validation data.
-  test                   Directory containing test data.
-  production_data/       Directory containing customized data.
-    crop-x-s             Directory with data at a given uniforme lenght
-       metadata.csv      Metadata of the customized data.
+  train                   Directory containing train data.
+  val                     Directory containing validation data.
+  test                    Directory containing test data.
+  production_data/        Directory containing customized data.
+    crop-x-s/             Directory with data at a given uniform lenght of x seconds
+       train              Directory containing the customized validation data.
+       val                Directory containing the customized validation data.
+       metadata.csv       Metadata of the customized data.
     ...
-  metadata.csv           Metadata of the training and validation data.
+  metadata.csv            Metadata of the training and validation data.
 ~~~
 
 ## Data
@@ -31,6 +33,10 @@ The metadata file
 | insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/val/insect_bcd_001_dat1.wav | insect_bcd | 34 | validation | 44100 | 88200 | 2 | 
 | insect_dae_003.wav | insect_dae_003 | data/val/insect_dae_003.wav | insect_dae | 49 | validation | 44100 | 238140 | 5.4 | 
 
-After using the 01_preprocess_waves notebooks a 
+After using the 01_preprocess_waves notebooks a folder with data that contain waveforms at a given uniform lenght is created and placed into the production_data folder. This folder contains a metadata for the created files.
+Note that the metadata for this customized files has a different sctructure as given:
+
+| file_name | unique_file | path | label | subset |
+| ----------- | | ----------- | | ----------- | | ----------- | | ----------- |
 
 ## Additional notes
