@@ -38,6 +38,7 @@ After using the 01_preprocess_waves notebooks a folder with data that contain wa
 Note that the metadata for this customized files has a different sctructure as given:
 
 | file_name | unique_file | path | label | subset |
-| ----------- | | ----------- | | ----------- | | ----------- | | ----------- |
+| ----------- | ----------- | ----------- | ----------- | ----------- |
 | insect_abc_001.wav | insect_abc_001 | data/production_data/crop-x-s/train/insect_abc_001_chunk1.wav |
+
 ## Additional notes
