@@ -1,4 +1,4 @@
-# Capgemini GDSC 2023 README (Data-Folder)
+# Data README 
 
 ## Overview 
 This folder contains the whole data that is used for the training, evaluation and testing of the selected ML model as well as a metadata csv file. For detailed information look at the **Data** section below.
