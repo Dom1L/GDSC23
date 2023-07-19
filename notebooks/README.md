@@ -3,7 +3,7 @@
 --------------------------
 01_preprocess_waves.ipynb:
 --------------------------
-TBD
+Preprocesses sound data to uniform length.
 
 
 --------------------------
@@ -16,13 +16,13 @@ Uses metadata from the "data"-folder as an input and saves class weights in an *
 --------------------------
 03_scan_lr.ipynb:
 --------------------------
-TBD
+Trains the given model multiple times with different learning rates to figure out the most suitable leartning rate.
 
 
 --------------------------
 04_run_training.ipynb:
 --------------------------
-TBD
+Trains and evaluates the data.
 
 
 --------------------------
