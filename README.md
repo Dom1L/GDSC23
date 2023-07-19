@@ -79,6 +79,26 @@ colorednoise
 5. Decide which hyperparameters to use, whether to use a pretrained model, etc.
 6. Run the necessary notebooks including 04_run_training.
 
+### Hardware & Performance
+
+All models have been trained using an `ml.g4dn.xlarge` instance on AWS Sagemaker, which uses a Tesla-V4 GPU.
+The model only requires ~1.2 GB of GPU memory itself.
+See the table below for details on memory usage and inference time.
+Values have been calculated using 5 second long mel spectrograms (n_bins=128).
+Results may vary for longer audio files or larger spectrograms.
+
+| Batch Size              | GPU Memory [MB]         | Inference Time [ms] |  
+|-------------------------|---------------------|---------------------| 
+| 1     | 1200      | 25.1                | 
+| 32     | 4060      | 65.3                | 
+| 64 | 6950 | 121                 |
+| 128 | 12180 | 238                 |
+
+
+
+
+
+
 ## Methodology
 
 ### Data

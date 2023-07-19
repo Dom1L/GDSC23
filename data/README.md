@@ -64,5 +64,3 @@ IR's used in this work are:
 Create a subdirectory called "irs" and move all downloaded directories there.
 An example path should have the following depth ``ir/*/*/mono/*.wav``.
 Path issues might occur in https://github.com/Dom1L/GDSC23/blob/7d719bb3dd285bcc8bdf4e1c4057f032476370bb/src/custom/trainer.py#L42
-
-## Additional notes
