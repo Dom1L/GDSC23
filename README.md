@@ -6,6 +6,7 @@
    1. [Repository Structure](#repository-structure)
    2. [Dependencies](#dependencies)
    3. [Usage](#usage)
+   4. [Hardware & Performance](#hardware--performance)
 3. [Methodology](#methodology)
    1. [Data](#data)
    2. [Model Description](#model-description)
@@ -102,7 +103,7 @@ Results may vary for longer audio files or larger spectrograms.
 ## Methodology
 
 ### Data
-This Model is expecting waveform files in the data folder together with a metadata csv file, that contains the exact filename, path and label for training/validation data and filename, path for test data. 
+The model is expecting waveform files in the data folder together with a metadata csv file, that contains the exact filename, path and label for training/validation data and filename, path for test data. 
 Crucially, all data is supposed to have the same sampling frequency, but can vary in length.
 We split every audio file into smaller windows of uniform length. 
 We made this decision since we noticed a big deviation of audio length between our training data files and the spectrogram approach relies on audio files of the same length.
