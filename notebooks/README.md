@@ -1,8 +1,7 @@
-# Capgemini GDSC2023 README (Notebook-Folder)
+# Notebook README
 
 ## Overview
-This folder contains the used notebooks.
-
+This folder contains all notebooks needed to run the model. The following is a detailed explanation of all the notebooks, their functionalities and how to use them. They are designed to be run in series, however if you already performed the necessary preprocessing steps then you can also only run 04_run_training.
 ## 01_preprocess_waves.ipynb:
 Preprocesses sound data to uniform length.
 
