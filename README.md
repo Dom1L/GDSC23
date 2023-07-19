@@ -34,7 +34,7 @@ External python libraries, frameworks, or packages that are required to run the 
 ## Pretrained vs Trained Model
 Decide if you want to use a pretrained model, or train the model from scratch. This and other hyperparameters can be set in the 04_run_training notebook.
 
-## Making Predictions or Classifications
+## Making Classifications
 Running the 04_run_training notebook creates sub-folders for each training run, containing model checkpoints, hyperparamter savefiles, events.out.tfevents for logging, two prediction csv and other useful files. Refer to the notebooks README.   
 
 ## Model Evaluation
