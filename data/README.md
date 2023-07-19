@@ -11,6 +11,7 @@ data/
   train                   Directory containing train data.
   val                     Directory containing validation data.
   test                    Directory containing test data.
+  irs                     Directory containing impulse response audio files.
   production_data/        Directory containing customized data.
     crop-x-s/             Directory with data at a given uniform length of x seconds
        train              Directory containing the customized validation data.
