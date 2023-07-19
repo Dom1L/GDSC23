@@ -27,18 +27,21 @@ The metadata file
 
 | file_name | unique_file | path | species | label | subset | sample_rate | num_frames | lenght |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| insect_dae_003.wav | insect_dae_003 | data/val/insect_dae_003.wav | insect_dae | 49 | validation | 44100 | 238140 | 7 |  
+| insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/val/insect_bcd_001_dat1.wav | insect_bcd | 34 | validation | 44100 | 88200 | 2 | 
 | insect_abc_001.wav | insect_abc_001 | data/train/insect_abc_001.wav | insect_abc | 1 | train | 44100 | 4463050 | 10.5 | 
-| insect_dae_003.wav | insect_dae_003 | data/val/insect_dae_003.wav | insect_dae | 49 | validation | 44100 | 238140 | 7 | 
+| insect_dae_002.wav | insect_dae_002 | data/val/insect_dae_002.wav | insect_dae | 49 | validation | 44100 | 238140 | 5.4 |
 | insect_abc_002_edit.wav | insect_abc_002_edit | data/train/insect_abc_002_edit.wav | insect_abc | 1 | train | 44100 | 337571 | 7.65467 | 
 | insect_abb_001.wav | insect_abb_001 | data/train/insect_abb_001.wav | insect_abb | 7 | train | 44100 | 220500 | 11.4 | 
-| insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/val/insect_bcd_001_dat1.wav | insect_bcd | 34 | validation | 44100 | 88200 | 2 | 
-| insect_dae_002.wav | insect_dae_002 | data/val/insect_dae_002.wav | insect_dae | 49 | validation | 44100 | 238140 | 5.4 | 
+
 
 After using the 01_preprocess_waves notebooks a folder with data that contain waveforms at a given uniform lenght is created and placed into the production_data folder. This folder contains a metadata for the created files.
 Note that the metadata for this customized files has a different sctructure as given:
 
 | file_name | unique_file | path | label | subset |
 | ----------- | ----------- | ----------- | ----------- | ----------- |
-| insect_abc_001.wav | insect_abc_001 | data/production_data/crop-x-s/train/insect_abc_001_chunk1.wav |
+| insect_dae_003.wav | insect_dae_003 | data/production_data/crop-x-x/val/insect_dae_003_chunk1.wav | 49 | validation | 
+| insect_dae_003.wav | insect_dae_003 | data/production_data/crop-x-x/val/insect_dae_003_chunk1.wav | 49 | validation | 
+| insect_abc_001.wav | insect_abc_001 | data/production_data/crop-x-s/train/insect_abc_001_chunk1.wav | 1 | train |
 
 ## Additional notes
