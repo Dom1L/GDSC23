@@ -2,8 +2,9 @@
 
 ## Overview
 This folder contains all notebooks needed to run the model. The following is a detailed explanation of all the notebooks, their functionalities and how to use them. They are designed to be run in series, however if the necessary preprocessing steps ahve already been performed then you can only run 04_run_training.
+
 ## 01_preprocess_waves.ipynb:
-Preprocesses sound data to uniform length.
+Preprocesses waveform data to uniform length and saves the data locally. Use the overlap parameter to determine how much of the data overlaps. For example a 9 second long sound file is covered completely by 2 smaller 5 second sound files with an overlap of 1 second.
 
 ## 02_classweights.ipynb:
 Calculates different types of class weights. Uses metadata from the "data"-folder as an input and saves class weights in an *.npy file in the "class_weitghts"-folder.
