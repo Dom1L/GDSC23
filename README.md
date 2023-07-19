@@ -31,7 +31,7 @@ External python libraries, frameworks, or packages that are required to run the 
 5. Decide which hyperparameters to use, whether to use a pretrained model, etc.
 6. Run the necessary notebooks including 04_run_training.
 
-## Training the Model
+## Pretrained vs Trained the Model
 Decide if you want to use a pretrained model, or train the model from scratch. This and other hyperparameters can be set in the 04_run_training notebook.
 
 ## Making Predictions or Classifications
