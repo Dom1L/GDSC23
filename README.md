@@ -27,7 +27,7 @@ External python libraries, frameworks, or packages that are required to run the 
 1. Clone this repository.
 2. Install the necessary dependencies specified in the "Dependencies" section, e.g. using ``pip install -r requirements.txt``
 3. Make sure that the data folder is set up correctly.
-4. Navigate to the notebooks directory and read the README.
+4. Navigate to the notebooks directory and read the [README](https://github.com/Dom1L/GDSC23/blob/main/notebooks/README.md).
 5. Decide which hyperparameters to use, whether to use a pretrained model, etc.
 6. Run the necessary notebooks including 04_run_training.
 
@@ -35,7 +35,7 @@ External python libraries, frameworks, or packages that are required to run the 
 Decide if you want to fine-tune a pretrained model, or train a model from scratch. This and other hyperparameters can be set in the 04_run_training notebook.
 
 ## Making Classifications
-Running the 04_run_training notebook creates sub-folders for each training run, containing model checkpoints, hyperparameter savefiles, events.out.tfevents for logging, two prediction csv and other useful files. Refer to the notebooks README.   
+Running the 04_run_training notebook creates sub-folders for each training run, containing model checkpoints, hyperparameter savefiles, events.out.tfevents for logging, two prediction csv and other useful files. Refer to the notebooks [README](https://github.com/Dom1L/GDSC23/blob/main/notebooks/README.md).   
 
 ## Data
 This Model is expecting waveform files in the data folder together with a metadata csv file, that contains the exact filename, path and label for training/validation data and filename, path for test data. Crucially, all data is supposed to have the same sampling frequency, but can vary in length.
