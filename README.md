@@ -1,20 +1,27 @@
 # Capgemini Global Data Science Challenge 2023 Readme
 
 ## Overview
-This repository contains code to create, train and evaluate ML models for classyfing sound data. The specific task was to classify insect sounds into 66 different classes. This README file provides an overview of the model, its functionality and how to use it.  
+This repository contains code to create, train and evaluate ML models for classifying sound data. The specific task was to classify insect sounds into 66 different classes. This README file provides an overview of the model, its functionality and how to use it. Refer to README files located in the sub-directories for in-depth explanation.  
 
 ## Model Description
-The ML model is built using TorchAudio and utilizes pre-trained models as part of its evaluation. It is based on the spectrogram approach of audio calssification i.e. transforming raw data into Mel spectrograms and then solve an image classification problem.
+The ML model is built using PyTorch Lightning and utilizes pre-trained models as part of its evaluation. It is based on the spectrogram approach of audio calssification i.e. transforming raw data into Mel spectrograms and then solving the resulting image classification problem.
 
 ## Dependencies
-External libraries, frameworks, or packages that are required to run the model successfully. See also requirements.txt.
+External python libraries, frameworks, or packages that are required to run the model successfully. See also requirements.txt.
 
-- Library Name 1 (Version X.X.X)
-- Library Name 2 (Version X.X.X)
-- Library Name 1 (Version X.X.X)
-- Library Name 2 (Version X.X.X)
-- Library Name 1 (Version X.X.X)
-- Library Name 2 (Version X.X.X)
+- numpy
+- tqdm
+- pandas
+- scikit-learn
+- matplotlib
+- seaborn
+- torch
+- lightning
+- lightning-bolts
+- timm
+- tensorboard
+- torch-audiomentations
+- colorednoise
 
 ## Usage
 1. Install the necessary dependencies specified in the "Dependencies" section.
@@ -28,12 +35,13 @@ External libraries, frameworks, or packages that are required to run the model s
 Decide if you want to use a pretrained model, or train the model from scratch. This and other hyperparameters can be set in the 04_run_training notebook.
 
 ## Making Predictions or Classifications
-Describe how to use the trained model to make predictions or perform classifications. Include code snippets or instructions for running the model on new data.
+Running the 04_run_training notebook creates sub-folders for each training run, containing model checkpoints, hyperparamter savefiles, events.out.tfevents for logging, two prediction csv and other useful files. Refer to the notebooks README.   
 
 ## Model Evaluation
-If applicable, describe how to evaluate the performance of the model, including metrics used and how to interpret the results.
+Tensorboard is a supported logger for Pytorch Lightning and the saved events.out.tfevents files can be analyzed in tensorboard. Refer to [tensorboard](https://www.tensorflow.org/tensorboard/get_started#:~:text=TensorBoard%20is%20a%20tool%20for,dimensional%20space%2C%20and%20much%20more.) documentation. 
 
 ## Data
+This Model is expecting 
 Describe the data used to train and evaluate the model. Include information about the dataset's source, format, and any preprocessing steps performed on the data.
 
 ## Model Files
