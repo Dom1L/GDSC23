@@ -41,11 +41,6 @@ Running the 04_run_training notebook creates sub-folders for each training run, 
 This Model is expecting waveform files in the data folder together with a metadata csv file, that contains the exact filename, path and label for training/validation data and filename, path for test data. Crucially, all data is supposed to have the same sampling frequency, but can vary in length.
 We split every audio file into smaller windows of uniform length. We made this decision since we noticed a big deviation of audio length between our training data files. So for example a 27 second long file could be split into 6 smaller files, each 5 seconds long, with the last file padded with zeros.
 
-| Syntax | Description |
-| ----------- | ----------- |
-| Header | Title |
-| Paragraph | Text |
-
 ## Model Evaluation
 We evaluate a single audio file by calculating the prediction of each uniform subfile, then averaging all predictions for that singular file. Finally, we calculate the f1-score, among other metrics, based on all predictions. In addition we return the confusion matrix and use Tensorboard logging, which is a supported logger for Pytorch Lightning, during our training runs. The saved events.out.tfevents files can be analyzed in tensorboard, to monitor all desirable metrics during the training run. For further details, refer to [tensorboard](https://www.tensorflow.org/tensorboard/get_started#:~:text=TensorBoard%20is%20a%20tool%20for,dimensional%20space%2C%20and%20much%20more.) documentation. 
 
@@ -60,27 +55,25 @@ notebooks/
   02_classweights.ipynb:             Notebook that calculates various class weights. 
   03_scan_lr.ipynb:                  Notebook that trains the model multiple times with different learning rates.
   04_run_training.ipynb:             Notebook that trains and evaluates the data. 
-  05_scan_parameters.ipynb:  
+  05_scan_parameters.ipynb:          Notebook that loops over multiple parameters for training
 shell_scripts:                       Directory that contains 2 shell scripts, to help reduce costs on AWS.
 src/
   custom/  
-    __inti__.py:    
+    __init__.py:    
     data.py:    
     eval.py:
     net.py:
     trainer.py
     utils.py
-  baseline_ast_train.py 
-  config.py
-  eda_utils.py
-  gdsc_eval.py 
-  gdsc_utils.py 
-  preprocessing.py  
+  config.py                          Imported libraries and utilities
+  gdsc_utils.py                      Imported libraries and utilities
 requirements.txt
 ~~~
 
 ## Additional Notes
 Include any additional notes or considerations relevant to the model, such as limitations, known issues, or future improvements.
+
+file paths!
 
 ## Contributors
 List of people, that contributed in creating this model:
