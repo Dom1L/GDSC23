@@ -36,7 +36,7 @@ The metadata file
 | insect_abb_001.wav | insect_abb_001 | data/train/insect_abb_001.wav | insect_abb | 7 | train | 44100 | 502740 | 11.4 | 
 
 
-After using the 01_preprocess_waves notebooks a folder with data that contains waveforms at a given uniform lenght is created and placed into the production_data folder. This folder contains a metadata for the created files.
+After using the 01_preprocess_waves notebooks a folder with data that contains waveforms at a given uniform length is created and placed into the production_data folder. This folder contains a metadata for the created files.
 For more detailed information look at the [README](https://github.com/Dom1L/GDSC23/blob/main/notebooks/README.md) in the notebooks folder.
 Note that the metadata for this customized files has a different sctructure, given as follows:
 
