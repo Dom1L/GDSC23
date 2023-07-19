@@ -34,6 +34,8 @@ The learning rate is one of the most important hyperparameters to tune during wh
 This notebooks provides a quick interface to the learning rate tuner implemented in Pytorch Lightning.
 A grid of learning rates can be defined and the tuner calculates the loss of a few batches to estimate a good initial starting rate.
 The results can be visualized and a final learning rate be suggested.
+During regular training runs, e.g. in 04_run_training.ipynb, a learning rate scheduler (CosineAnnealing) is being used to smoothly
+adjust the learning rate over the entire training run.
 
 
 ## 04_run_training.ipynb:
