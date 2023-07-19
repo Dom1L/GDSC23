@@ -24,8 +24,8 @@ External python libraries, frameworks, or packages that are required to run the 
 - colorednoise
 
 ## Usage
-1. Install the necessary dependencies specified in the "Dependencies" section.
-2. Clone this repository.
+1. Clone this repository.
+2. Install the necessary dependencies specified in the "Dependencies" section, e.g. using ``pip install -r requirements.txt``
 3. Make sure that the data folder is set up correctly.
 4. Navigate to the notebooks directory and read the README.
 5. Decide which hyperparameters to use, whether to use a pretrained model, etc.
@@ -35,7 +35,7 @@ External python libraries, frameworks, or packages that are required to run the 
 Decide if you want to fine-tune a pretrained model, or train a model from scratch. This and other hyperparameters can be set in the 04_run_training notebook.
 
 ## Making Classifications
-Running the 04_run_training notebook creates sub-folders for each training run, containing model checkpoints, hyperparamter savefiles, events.out.tfevents for logging, two prediction csv and other useful files. Refer to the notebooks README.   
+Running the 04_run_training notebook creates sub-folders for each training run, containing model checkpoints, hyperparameter savefiles, events.out.tfevents for logging, two prediction csv and other useful files. Refer to the notebooks README.   
 
 ## Data
 This Model is expecting waveform files in the data folder together with a metadata csv file, that contains the exact filename, path and label for training/validation data and filename, path for test data. Crucially, all data is supposed to have the same sampling frequency, but can vary in length.
@@ -105,7 +105,8 @@ Many thanks to our Capgemini Sponsors and organizational team that made all of t
 - Timo Abele
 - Tomasz Czerniawski
 
-Additionally we want to thank **AWS**, for providing us with their state of the art cloud infrastructure and enough resources, to make this challenge a reality.
+Additionally, we want to thank **AWS**, for providing us with their state of the art cloud infrastructure and enough resources, to make this challenge a reality.
 
 ## License
-Specify the license under which the model is released. If it is an open-source project, provide a link to the license file.
+The used impulse response data is available on [OpenAir](https://www.openair.hosted.york.ac.uk/) licences under CC BY 4.0.
+All additional Python dependencies are licensed either under MIT or Apache 2.0.
