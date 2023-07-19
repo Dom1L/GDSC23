@@ -37,7 +37,7 @@ The metadata file
 
 
 After using the 01_preprocess_waves notebooks a folder with data that contains waveforms at a given uniform lenght is created and placed into the production_data folder. This folder contains a metadata for the created files.
-For more detailed information look at the README in the notebooks folder.
+For more detailed information look at the [README](https://github.com/Dom1L/GDSC23/blob/main/notebooks/README.md) in the notebooks folder.
 Note that the metadata for this customized files has a different sctructure, given as follows:
 
 | file_name | unique_file | path | label | subset |
