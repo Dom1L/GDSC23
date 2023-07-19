@@ -1,4 +1,4 @@
-# Capgemini Global Data Science Challenge 2023 README
+# Capgemini Global Data Science Challenge 2023
 
 ## Overview
 This repository contains code to create, train and evaluate ML models for classifying sound data. The specific task was to classify insect sounds into 66 different classes. This README file provides an overview of the model, its functionality and how to use it. Refer to README files located in the sub-directories for in-depth explanation.  
