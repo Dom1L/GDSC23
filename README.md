@@ -79,8 +79,8 @@ Include any additional notes or considerations relevant to the model, such as li
 ## Contributors
 List of people, that contributed in creating this model:
 - Raffaela Heily
-- Dominik Lemm
 - Lukas Kementinger
+- Dominik Lemm
 - Lucas Unterberger
 
 Special thanks to the team of **Naturalis Biodiversity Center** that provided the data, the idea and the path towards a more sustainable and biodiverse future:
