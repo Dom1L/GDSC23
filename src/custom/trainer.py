@@ -39,7 +39,7 @@ class TrainModule(L.LightningModule):
         self.impulse = ApplyImpulseResponse(p=cfg.impulse_prob, p_mode="per_example",
                                             sample_rate=cfg.sample_rate, mode="per_example",
                                             compensate_for_propagation_delay=True,
-                                            ir_paths=glob("../../data/irs/*/*/mono/*"))
+                                            ir_paths=glob("../data/irs/*/*/mono/*"))
 
     def forward(self, wave):
         # Forward function that is run when visualizing the graph
