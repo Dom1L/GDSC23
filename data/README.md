@@ -12,7 +12,7 @@ data/
   val                     Directory containing validation data.
   test                    Directory containing test data.
   production_data/        Directory containing customized data.
-    crop-x-s/             Directory with data at a given uniform lenght of x seconds
+    crop-x-s/             Directory with data at a given uniform length of x seconds
        train              Directory containing the customized validation data.
        val                Directory containing the customized validation data.
        metadata.csv       Metadata of the customized data.
@@ -46,5 +46,22 @@ Note that the metadata for this customized files has a different sctructure, giv
 | insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/production_data/crop-x-s/val/insect_bcd_001_dat1_loop.wav | 34 | validation | 
 | insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/production_data/crop-x-s/val/insect_bcd_001_dat1_padded.wav | 34 | validation | 
 | insect_abc_001.wav | insect_abc_001 | data/production_data/crop-x-s/train/insect_abc_001_chunk1.wav | 1 | train |
+
+## Impulse Responses (IR)
+
+To use IR augmentation with the model, additional files have to be downloaded. 
+We used IR's from [OpenAir](https://www.openair.hosted.york.ac.uk/) under the IR tab.
+Select an environment and download the audio files under the "Impulse Responses" tab.
+
+IR's used in this work are:
+- [Gill Heads Mine](https://www.openair.hosted.york.ac.uk/?page_id=494)
+- [Koli National Park Summer](https://www.openair.hosted.york.ac.uk/?page_id=577)
+- [Koli National Park Winter](https://www.openair.hosted.york.ac.uk/?page_id=584)
+- [Troller's Gill](https://www.openair.hosted.york.ac.uk/?page_id=745)
+- [Tyndall Bruce Monument](https://www.openair.hosted.york.ac.uk/?page_id=764)
+
+Create a subdirectory called "irs" and move all downloaded directories there.
+An example path should have the following depth ``ir/*/*/mono/*.wav``.
+Path issues might occur in https://github.com/Dom1L/GDSC23/blob/7d719bb3dd285bcc8bdf4e1c4057f032476370bb/src/custom/trainer.py#L42.
 
 ## Additional notes
