@@ -38,10 +38,10 @@ Decide if you want to use a pretrained model, or train the model from scratch. T
 Running the 04_run_training notebook creates sub-folders for each training run, containing model checkpoints, hyperparamter savefiles, events.out.tfevents for logging, two prediction csv and other useful files. Refer to the notebooks README.   
 
 ## Model Evaluation
-A macro-averaged f1-score is used for evaluation (mean f1-score for all 66 classes) and we also return confusion matrices for further analysis. Additionally we use Tensorboard, which is a supported logger for Pytorch Lightning. The saved events.out.tfevents files can be analyzed in tensorboard, to monitor the entire training run. For further details and usage questions, refer to [tensorboard](https://www.tensorflow.org/tensorboard/get_started#:~:text=TensorBoard%20is%20a%20tool%20for,dimensional%20space%2C%20and%20much%20more.) documentation. 
+Our model got scored based on a macro-averaged f1-score (mean f1-score for all 66 classes) and we return the confusion matrix as well as other evaluation metrics for further analysis. Additionally we use Tensorboard logging, which is a supported logger for Pytorch Lightning, during our training runs. The saved events.out.tfevents files can be analyzed in tensorboard, to monitor all desirable metrics during the training run. For further details, refer to [tensorboard](https://www.tensorflow.org/tensorboard/get_started#:~:text=TensorBoard%20is%20a%20tool%20for,dimensional%20space%2C%20and%20much%20more.) documentation. 
 
 ## Data
-This Model is expecting waveform files in the data folder together with a metadata csv file, that contains the exact filename, path and label for training/validation data and filename, path for test data. Crucially, all data is supposed to have the same sampling frequency. 
+This Model is expecting waveform files in the data folder together with a metadata csv file, that contains the exact filename, path and label for training/validation data and filename, path for test data. Crucially, all data is supposed to have the same sampling frequency, but can vary in length. 
 
 ## Model Files
 This is the expected structure to run the model successfully. Paths with no file ending are folders.
@@ -108,7 +108,7 @@ Many thanks to our Capgemini Sponsors and organizational team that made all of t
 - Timo Abele
 - Tomasz Czerniawski
 
-Additionally we want to thank **AWS**, for providing us with their state of the art cloud infrastructure and enough resources, to make this challenge a reality
+Additionally we want to thank **AWS**, for providing us with their state of the art cloud infrastructure and enough resources, to make this challenge a reality.
 
 ## License
 Specify the license under which the model is released. If it is an open-source project, provide a link to the license file.
