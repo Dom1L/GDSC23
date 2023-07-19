@@ -1,4 +1,5 @@
-# Capgemini Global Data Science Challenge 2023 README (Data-Folder)
+# Capgemini Global Data Science Challenge 2023 README 
+# (Data-Folder)
 
 ## Overview 
 This directory contains the whole data that is used for the training, evaluation and testing of the selected ML model as well as a metadata csv file. For further details look at the **Data** section below.
