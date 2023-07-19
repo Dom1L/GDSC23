@@ -1,5 +1,5 @@
 # Capgemini Global Data Science Challenge 2023 README
-
+Solution of the team "It is a bug" - I&D Austria
 ## Table of contents
 1. [Overview](#overview)
 2. [Setup](#setup)
