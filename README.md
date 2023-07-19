@@ -39,7 +39,7 @@ Running the 04_run_training notebook creates sub-folders for each training run, 
 
 ## Data
 This Model is expecting waveform files in the data folder together with a metadata csv file, that contains the exact filename, path and label for training/validation data and filename, path for test data. Crucially, all data is supposed to have the same sampling frequency, but can vary in length.
-We split every audio file into smaller windows of uniform length. We made this decision since we noticed a big deviation of audio length between our training data files.
+We split every audio file into smaller windows of uniform length. We made this decision since we noticed a big deviation of audio length between our training data files and the spectrogram approach relies on audio files of the same length.
 
 ## Model Evaluation
 We evaluate a single audio file by calculating the prediction of each uniform subfile, then averaging all predictions for that singular file. Finally, we calculate the f1-score, among other metrics, based on all predictions. In addition we return the confusion matrix and use Tensorboard logging, which is a supported logger for Pytorch Lightning, during our training runs. The saved events.out.tfevents files can be analyzed in tensorboard, to monitor all desirable metrics during the training run. For further details, refer to [tensorboard](https://www.tensorflow.org/tensorboard/get_started#:~:text=TensorBoard%20is%20a%20tool%20for,dimensional%20space%2C%20and%20much%20more.) documentation. 
