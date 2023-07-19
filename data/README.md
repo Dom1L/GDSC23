@@ -24,7 +24,10 @@ In production_data
 
 | file_name | unique_file | path | species | label | subset | sample_rate | num_frames | lenght |
 | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
-| insect_abc_001.wav | insect_abc_001.wav |data/train/insect_abc_001.wav | insect_abc | 1 | train | 44100 | 4586400 | 104 | 
-| Paragraph | Text | xxx | xxx | xxx | xxx | xxx | xxx | xxx | 
+| insect_abc_001.wav | insect_abc_001 |data/train/insect_abc_001.wav | insect_abc | 1 | train | 44100 | 4586400 | 104 | 
+| insect_abc_002_edit.wav | insect_abc_002_edit | data/train/insect_abc_002_edit.wav | insect_abc | 1 | train | 44100 | 337571 | 7.65467 | 
+| insect_abb_001.wav | insect_abb_001 | data/train/insect_abb_001.wav | insect_abb | 7 | train | 44100 | 220500 | 11.4 | 
+| insect_bcd_001_dat1.wav | insect_bcd_001_dat1 | data/val/insect_bcd_001_dat1.wav | insect_bcd | 34 | validation | 44100 | 88200 | 2 | 
+| insect_dae_003.wav | insect_dae_003 | data/val/insect_dae_003.wav | insect_dae | 49 | validation | 44100 | 238140 | 5.4 | 
 
 ## Additional notes
