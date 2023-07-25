@@ -160,7 +160,7 @@ Please be warned that file paths might need to be adapted, depending on your OS 
 ## Contributors & Acknowledgements
 List of people, that contributed in creating this model:
 - Raffaela Heily
-- Lukas Kementinger
+- Lukas Kemetinger
 - Dominik Lemm
 - Lucas Unterberger
 
