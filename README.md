@@ -30,25 +30,25 @@ This is the expected structure to run the model successfully.
 Paths with no file ending are folders.
 
 ~~~
-class_weights:                       Directory containing different class weights, based on various metrics.
-data:                                Directory containing train, validation and test data.
+class_weights                       Directory containing different class weights, based on various metrics.
+data                                Directory containing train, validation and test data.
 notebooks/
-  01_preprocess_waves.ipynb:         Notebook for preprocessing sound data to uniform length. 
-  02_classweights.ipynb:             Notebook that calculates various class weights. 
-  03_scan_lr.ipynb:                  Notebook that trains the model multiple times with different learning rates.
-  04_run_training.ipynb:             Notebook that trains and evaluates the data. 
-  05_scan_parameters.ipynb:          Notebook that loops over multiple parameters for training
-shell_scripts:                       Directory that contains 2 shell scripts, to help reduce costs on AWS.
+  01_preprocess_waves.ipynb         Notebook for preprocessing sound data to uniform length. 
+  02_classweights.ipynb             Notebook that calculates various class weights. 
+  03_scan_lr.ipynb                  Notebook that trains the model multiple times with different learning rates.
+  04_run_training.ipynb             Notebook that trains and evaluates the data. 
+  05_scan_parameters.ipynb          Notebook that loops over multiple parameters for training
+shell_scripts                       Directory that contains 2 shell scripts, to help reduce costs on AWS.
 src/
   custom/  
-    __init__.py:    
-    data.py:    
-    eval.py:
-    net.py:
+    __init__.py    
+    data.py    
+    eval.py
+    net.py
     trainer.py
     utils.py
-  config.py                          Imported libraries and utilities
-  gdsc_utils.py                      Imported libraries and utilities
+  config.py                         Imported libraries and utilities
+  gdsc_utils.py                     Imported libraries and utilities
 requirements.txt
 ~~~
 
